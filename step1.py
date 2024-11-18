@@ -44,7 +44,7 @@ for entry in entries:
         content = content_element.text.strip() if content_element else "N/A"
 
         data.append([first_title, ID, infos, date, content])
-        print(f'First_Title: {first_title}\n\n PMID: {ID}n\\n Informations: {infos}\n\n Date: {date}\n\nContent: {content}\n{"-" * 50}')
+        print(f'First_Title: {first_title}\n\n ID: {ID}n\\n Informations: {infos}\n\n Date: {date}\n\nContent: {content}\n{"-" * 50}')
     
     time.sleep(1)
 
