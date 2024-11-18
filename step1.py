@@ -14,8 +14,9 @@ soup = BeautifulSoup(html.content, 'html.parser')
 entries =soup.find_all('li', class_='mw-search-result mw-search-result-ns-0')
 #print(entries)
 data = []
+temp_id = 1
 
-for entry in entries:
+for entry in entries: 
     title_element = entry.find('div', class_='mw-search-result-heading')
     date_element = entry.find('div', class_='mw-search-result-data')
 
@@ -30,6 +31,8 @@ for entry in entries:
         
         if link_element and 'href' in link_element.attrs:
             content_url = 'https://en.wikipedia.org' + link_element['href']
+            PMID = temp_id
+            temp_id = temp_id + 1
         else:
             print("No href attribute found")
             continue  
@@ -40,8 +43,8 @@ for entry in entries:
         
         content = content_element.text.strip() if content_element else "N/A"
 
-        data.append([first_title, infos, date, content])
-        print(f'First_Title: {first_title}\n\nInformations: {infos}\n\n Date: {date}\n\nContent: {content}\n{"-" * 50}')
+        data.append([first_title, PMID, infos, date, content])
+        print(f'First_Title: {first_title}\n\n PMID: {PMID}n\\n Informations: {infos}\n\n Date: {date}\n\nContent: {content}\n{"-" * 50}')
     
     time.sleep(1)
 
@@ -51,4 +54,3 @@ with open(json_filename, 'w', encoding='utf-8') as json_file:
     json.dump(data, json_file, ensure_ascii=False, indent=2)
 
 print(f"Τα δεδομένα αποθηκεύτηκαν στο αρχείο: {json_filename}")
-
