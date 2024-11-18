@@ -51,9 +51,10 @@ for column in df.columns:
 #ορίζει τα νέα ονόματα για τις στήλες
 new_columns = {
     0: 'First_Title',
-    1: 'Informations',
-    2: 'Date',
-    3: 'Content',
+    1: 'ID',
+    2: 'Informations',
+    3: 'Date',
+    4: 'Content',
 }
 
 #μετονομάζει τις στήλες χρησιμοποιώντας το λεξικό που ορίσαμε
