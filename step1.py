@@ -31,7 +31,7 @@ for entry in entries:
         
         if link_element and 'href' in link_element.attrs:
             content_url = 'https://en.wikipedia.org' + link_element['href']
-            PMID = temp_id
+            ID = temp_id
             temp_id = temp_id + 1
         else:
             print("No href attribute found")
@@ -43,8 +43,8 @@ for entry in entries:
         
         content = content_element.text.strip() if content_element else "N/A"
 
-        data.append([first_title, PMID, infos, date, content])
-        print(f'First_Title: {first_title}\n\n PMID: {PMID}n\\n Informations: {infos}\n\n Date: {date}\n\nContent: {content}\n{"-" * 50}')
+        data.append([first_title, ID, infos, date, content])
+        print(f'First_Title: {first_title}\n\n PMID: {ID}n\\n Informations: {infos}\n\n Date: {date}\n\nContent: {content}\n{"-" * 50}')
     
     time.sleep(1)
 
