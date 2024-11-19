@@ -6,6 +6,7 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 import string
+import json
 
 #nltk.download('punkt')
 #nltk.download('stopwords')
@@ -41,7 +42,7 @@ def preprocess_text(text):
     return ' '.join(processed_words)
 
 #διαβάζω το αρχείο results.json
-df = pd.read_json(r'D:\OneDrive - University of West Attica\σχολη ΠΑΔΑ\Εξάμηνα\Z Εξάμηνο\ΑΝΑΚΤΗΣΗ ΠΛΗΡ\2d_lab_try\results.json')
+df = pd.read_json(r'C:\Users\smoul\Anaktisi\results.json')
 
 
 #εφαρμόζω την προεπεξεργασία σε κάθε κελί του πίνακα
