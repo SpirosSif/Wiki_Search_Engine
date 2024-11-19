@@ -60,7 +60,10 @@ new_columns = {
 #μετονομάζει τις στήλες χρησιμοποιώντας το λεξικό που ορίσαμε
 df = df.rename(columns=new_columns)
 
-#αποθηκεύω το νέο αρχείο processed.json
-df.to_json('processed.json', orient='records', lines=True)
+# Αποθηκεύω το νέο αρχείο processed.json
+json_filename = "processed.json"
+with open(json_filename, 'w', encoding='utf-8') as json_file:
+    # Χρησιμοποιούμε τη μέθοδο to_json της pandas
+    df.to_json(json_file, force_ascii=False, indent=2, orient="records")
 
 print("Η επεξεργασία ολοκληρώθηκε και τα δεδομένα αποθηκεύτηκαν στο αρχείο processed.json.")
