@@ -49,7 +49,7 @@ for term in inverted_index:
     sorted_ids = sorted(unique_ids, key=int)  # Ταξινομούμε αριθμητικά
     inverted_index[term] = sorted_ids  # Μετατροπή σε λίστα και ενημέρωση του inverted_index
     
-# Αποθήκευση του ανεστραμμένου ευρετηρίου σε ένα αρχείο JSON
+# Αποθήκευση του ανεστραμμένου ευρετηρίου σε ένα αρχείο JSON με δομή δεδομένων λεξικού
 with open('inverted_index.json', 'w') as json_file:
     json.dump(inverted_index, json_file)
 
