@@ -1,12 +1,10 @@
 #pip install pandas
 import pandas as pd
-import nltk
-
+import re
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 import string
-import json
 
 #nltk.download('punkt')
 #nltk.download('stopwords')
@@ -60,6 +58,10 @@ new_columns = {
 
 #μετονομάζει τις στήλες χρησιμοποιώντας το λεξικό που ορίσαμε
 df = df.rename(columns=new_columns)
+
+# Εφαρμογή του regex στη στήλη 'Content', αν υπάρχει
+if 'Content' in df.columns:  # Ελέγχει αν υπάρχει στήλη 'text'
+    df['Content'] = df['Content'].apply(lambda x: re.sub(r'[^\x00-\x7F]+', '', str(x)))
 
 # Αποθηκεύω το νέο αρχείο processed.json
 json_filename = "processed.json"
