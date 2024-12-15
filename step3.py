@@ -9,23 +9,8 @@ all_terms = []
 
 # Αντίστροφο ευρετήριο
 inverted_index = {}
-
-# Αποθήκευση όλων των επεξεργασμένων δεδομένων
-# all_data = []
-
-# Επεξεργασία κάθε εγγράφου
-# for doc_id, document in enumerate(documents):
-    # Δημιουργούμε νέο λεξικό για το κάθε έγγραφο
-  #  processed_data = {}
-   # keys_to_extract = ['First_Title', 'ID', 'Content']
-    
-    # Εξάγουμε τα επιθυμητά πεδία
-    # for key in keys_to_extract:
-      #  if key in document:  # Ελέγχουμε αν το πεδίο υπάρχει
-       #     processed_data[key] = document[key]
-    
-    # Προσθέτουμε το επεξεργασμένο έγγραφο στη λίστα
-    #all_data.append(processed_data)
+boolean_inverted_index = {}
+temp = {}
 
 # Επεξεργασία κάθε εγγράφου
 for document in documents: # for document in all_data:
@@ -49,9 +34,25 @@ for term in inverted_index:
     sorted_ids = sorted(unique_ids, key=int)  # Ταξινομούμε αριθμητικά
     inverted_index[term] = sorted_ids  # Μετατροπή σε λίστα και ενημέρωση του inverted_index
     
-# Αποθήκευση του ανεστραμμένου ευρετηρίου σε ένα αρχείο JSON με δομή δεδομένων λεξικού
+for term in inverted_index:
+    temp = inverted_index[term]
+    if term not in boolean_inverted_index:
+        boolean_inverted_index[term] = []
+    for index in range(20):
+        if index < len(temp) and temp[index] == str(index + 1):
+            boolean_inverted_index[term].append(str(1))
+        else:
+            boolean_inverted_index[term].append(str(0))
+            
+    
+    
+# Αποθήκευση του ανεστραμμένου ευρετηρίου σε ένα αρχείο JSON
 with open('inverted_index.json', 'w') as json_file:
     json.dump(inverted_index, json_file)
+    
+# Αποθήκευση του ανεστραμμένου ευρετηρίου σε ένα αρχείο JSON
+with open('boolean_inverted_index.json', 'w') as json_file:
+    json.dump(boolean_inverted_index, json_file)
 
 # Δοκιμαστική εκτύπωση μερικών όρων
 print(all_terms[:10])
