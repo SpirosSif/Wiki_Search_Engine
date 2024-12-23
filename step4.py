@@ -29,21 +29,72 @@ def boolean_retrieval(query):
     if processed is None:
         print("Η λειτουργία Boolean Retrieval δεν είναι δυνατή λόγω απουσίας αρχείου inverted_index.json.")
         return
-    query = query.replace('and', ' ') #.replace('or', ' ').replace('not', ' ')
-    terms = query.split()
-    print(f"Εκτέλεση Boolean Retrieval για το ερώτημα: {terms}")
-    print (terms)
     result = []
+    
+    if "and" in query:
+        query = query.replace('and', ' ') #.replace('or', ' ').replace('not', ' ')
+        if "or" in query:
+            boolean_retrieval(query)
+        if "not" in query:
+            boolean_retrieval(query)
+        terms = query.split()
+        print(f"Εκτέλεση Boolean Retrieval για το ερώτημα: {terms}")
+        print (terms)
+        #result = []
 #    result1 = set()
-    result_and = "1"*20
+        result_and = "1"*20
  
-    for term in terms:
-        if term.lower() in inverted_index:
-            result.append(inverted_index[term.lower()])
+        for term in terms:
+            if term.lower() in inverted_index:
+                result.append(inverted_index[term.lower()])
  #           result1.update(processed[term.lower()])
-        result_and = result_and and inverted_index[term]
+            result_and = result_and and inverted_index[term]
+        print(f"result of and: {result_and}")
+    
+    
+    
+    
+    
+    if "or" in query:
+        query = query.replace('or', ' ')
+        terms = query.split()
+        print(f"Εκτέλεση Boolean Retrieval για το ερώτημα: {terms}")
+        print (terms)
+            #result = []
+    #    result1 = set()
+        result_or = "1"*20
+     
+        for term in terms:
+            if term.lower() in inverted_index:
+                result.append(inverted_index[term.lower()])
+     #           result1.update(processed[term.lower()])
+            result_or = result_or or inverted_index[term]
+        result_or = list(result_or)
+        print(f"result of or: {result_or}")
+        
+    if "not" in query:
+       query = query.replace('not', ' ')
+       terms = query.split()
+       print(f"Εκτέλεση Boolean Retrieval για το ερώτημα: {terms}")
+    
+       result_not = "1" * 20  # Ξεκινάμε με όλα τα έγγραφα (όλα "1")
 
-    print(f"result of and: {result_and}")    
+       for term in terms:
+            if term.lower() in inverted_index:
+                result.append(inverted_index[term.lower()])
+ #           result1.update(processed[term.lower()])
+            result_not = result_not and inverted_index[term]
+       print(f"Αποτέλεσμα NOT !: {result_not}")
+       size_of_list = len(result_not)
+       for i in range(size_of_list):
+            if result_not[i] == '1':
+                result_not[i] = '0'
+            else:
+                result_not[i] = '1'
+
+       print(f"Αποτέλεσμα NOT: {result_not}")
+    
+    
     #print(f"Αποτελέσματα Boolean Retrieval: {result}")
 
 #φορτώνω τα στοιχεία του inverted_index.json 
