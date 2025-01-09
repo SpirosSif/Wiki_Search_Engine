@@ -13,12 +13,12 @@ boolean_inverted_index = {}
 temp = {}
 
 # Επεξεργασία κάθε εγγράφου
-for document in documents: # for document in all_data:
+for document in documents:
     doc_id = document.get('ID')
     for field, field_value in document.items():
-        if field == "ID": # ερώτηση
+        if field == "ID":
             continue
-        if isinstance(field_value, str):  # Ελέγχω αν το πεδίο είναι string
+        if isinstance(field_value, str):  # Ελέγχουμε αν το πεδίο είναι string
             terms = field_value.split()
             all_terms.extend(terms)  # Προσθήκη όρων στη λίστα για όλα τα έγγραφα
 
@@ -35,17 +35,17 @@ for term in inverted_index:
     inverted_index[term] = sorted_ids  # Μετατροπή σε λίστα και ενημέρωση του inverted_index
     
 for term in inverted_index:
-    temp = inverted_index[term]
+    temp = inverted_index[term]  # Ταξινομημένη λίστα με IDs
     if term not in boolean_inverted_index:
         boolean_inverted_index[term] = []
-    for index in range(20):
-        if index < len(temp) and temp[index] == str(index + 1):
-            boolean_inverted_index[term].append(str(1))
+    
+    # Δημιουργούμε Boolean λίστα για 20 πιθανές θέσεις
+    for index in range(20):  # Έλεγχος για 20 εγγραφές
+        if str(index + 1) in temp:  # Ελέγχουμε αν το index + 1 υπάρχει στο temp
+            boolean_inverted_index[term].append('1')  # Προσθήκη 1
         else:
-            boolean_inverted_index[term].append(str(0))
+            boolean_inverted_index[term].append('0')  # Προσθήκη 0
             
-    
-    
 # Αποθήκευση του ανεστραμμένου ευρετηρίου σε ένα αρχείο JSON
 with open('inverted_index.json', 'w') as json_file:
     json.dump(inverted_index, json_file)
