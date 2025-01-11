@@ -10,8 +10,9 @@ def user_interface():
         query = input("Εισαγάγετε το ερώτημά σας ή γράψτε exit για έξοδο: ").strip().lower()
         
         if query == 'exit':
-            mAP = calculate_mAP(num_query,ap_score)
-            print(f"Το mAP score είναι {mAP}")
+            if num_query !=0 :
+                mAP = calculate_mAP(num_query,ap_score)
+                print(f"Το mAP score είναι {mAP}")
             print("Ευχαριστούμε που χρησιμοποιήσατε τη μηχανη αναζήτησης μας.")
             break
 
